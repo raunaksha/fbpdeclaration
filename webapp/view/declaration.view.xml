@@ -1,0 +1,184 @@
+<mvc:View controllerName="fbp.prestige.fbpdeclaration.controller.declaration"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns:u="sap.ui.unified" xmlns:form="sap.ui.layout.form" xmlns:forms="sap.ui.layout.form"
+    xmlns:m="sap.m" xmlns="sap.uxap" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    <m:Page id="page" title="{i18n>title}">
+        <m:content>
+        	<ObjectPageLayout id="ObjectPageLayout" preserveHeaderStateOnScroll="false" upperCaseAnchorBar="false" class="sapUiSmallMargin sapUiSmallMarginEnd" navigate="onOPSChange">
+       <headerTitle>
+       <ObjectPageDynamicHeaderTitle id="_IDGenObjectPageDynamicHeaderTitle1">
+				<heading>
+					<m:Title id="_IDGenTitle1" text="{parts: ['fbHdModel>/UserInfo/salutation', 'fbHdModel>/UserInfo/firstName', 'fbHdModel>/UserInfo/lastName']}" />
+				</heading>
+
+				<expandedContent>
+					<m:Text id="_IDGenText1" text="{fbHdModel>/uId}"/>
+				</expandedContent>
+
+				<snappedContent>
+					<m:Text id="_IDGenText2" text="{fbHdModel>/uId}"/>
+				</snappedContent>
+
+				<snappedTitleOnMobile>
+					<m:Title id="_IDGenTitle2" text="{fbHdModel>/uId}"/>
+				</snappedTitleOnMobile>
+				<actions>
+				<ObjectPageHeaderActionButton id="_IDGenObjectPageHeaderActionButton1" icon="sap-icon://approvals" text="Submit For Approval" hideText="false" press="onWfSubmitConf" importance="Medium" tooltip="Submit for Approval"/>
+				</actions>
+			</ObjectPageDynamicHeaderTitle>
+       </headerTitle>
+       <headerContent>
+       	<m:FlexBox id="_IDGenFlexBox1" wrap="Wrap" fitContainer="true">
+				<l:VerticalLayout id="_IDGenVerticalLayout1" class="sapUiMediumMarginEnd">
+                    <m:ObjectStatus id="_IDGenObjectStatus16" title="Employee Id" text="{fbHdModel>/qWindow/employee_id}"/>                
+					<m:ObjectStatus id="_IDGenObjectStatus15" title="Grade" text="{fbHdModel>/JobInfo/0/employmentTypeNav/picklistLabels/results/0/label}"/>	
+					<m:ObjectStatus id="_IDGenObjectStatus1" title="Financial Year" text="{fbHdModel>/finYear/0/cust_finyear}"/>
+					<m:ObjectStatus id="_IDGenObjectStatus11" title="Date of Joining" text="{path:'fbHdModel>/UserInfo/hireDate', formatter: '.formatter.resigDtFormatDisplayNew'}"/>
+					<m:ObjectStatus id="_IDGenObjectStatus12" title="Submission Date" text="{fbHdModel>/qWindow/submission_date}"/>
+					<m:ObjectStatus id="_IDGenObjectStatus13" title="FBP Effective Date" text="{path: 'fbHdModel>/qWindow', formatter: '.formatter.resigDtFormatDisplayNew'}"/>			
+				</l:VerticalLayout>
+
+				<l:VerticalLayout id="_IDGenVerticalLayout2" class="sapUiSmallMarginEnd">
+                    
+					<m:ObjectStatus id="_IDGenObjectStatus3" title="Monthly Basis Salary" text="{fbHdModel>/monthly_basis_salary/paycompvalue}"/>
+					<m:ObjectStatus id="_IDGenObjectStatus4" title="Monthly HRA" text="{fbHdModel>/monthly_HRA/paycompvalue}"/>
+                    <m:ObjectStatus id="_IDGenObjectStatus31" title="Monthly LTA" text="{fbHdModel>/monthly_LTA/paycompvalue}"/>
+					<m:ObjectStatus id="_IDGenObjectStatus42" title="Monthly CCA (available for FBP)" text="{fbHdModel>/monthly_CCA/paycompvalue}"/>
+                    <m:ObjectStatus id="_IDGenObjectStatus33" title="Monthly Special / Car Allowance (available for FBP)" text="{fbHdModel>/car_allowance/paycompvalue}"/>
+					<m:ObjectStatus id="_IDGenObjectStatus44" title="Total Monthly Gross" text="{fbHdModel>/total_monthly_gross/paycompvalue}"/>					
+				</l:VerticalLayout>
+
+			</m:FlexBox>   
+       </headerContent>
+       <sections>
+       <ObjectPageSection id="idSub" titleUppercase="false" title="Declaration">
+				<subSections>
+					<ObjectPageSubSection id="_IDGenObjectPageSubSection1" titleUppercase="false">
+                        <m:VBox id="_IDGenVBox1">
+
+                        					 <forms:Form id="id15" width="100%">
+		<forms:layout>
+			<forms:ColumnLayout id="id14" />
+		</forms:layout>
+		
+    
+	</forms:Form>
+       	<m:Table id="idProductsTable"
+		inset="false"
+		items="{fbBillModel>/}">
+		<m:headerToolbar>
+			<m:OverflowToolbar id="_IDGenOverflowToolbar1">
+				
+					<m:ToolbarSpacer id="_IDGenToolbarSpacer1"/>
+					<m:Button id="_IDGenButton1" text="Save" icon="sap-icon://save" press="onBillSave" />
+					<m:Button id="_IDGenButton2" text="Add Component" icon="sap-icon://add" press="onAddComponent"/>
+				
+			</m:OverflowToolbar>
+		</m:headerToolbar>		
+		<m:columns>
+			<m:Column id="_IDGenColumn1">
+				<m:Text id="_IDGenText3" text="Pay Component id" />
+			</m:Column>
+			<m:Column id="_IDGenColumn2">
+				<m:Text id="_IDGenText4" text="Declared Amount" />
+			</m:Column>	
+			 <m:Column id="_IDGenColumn3">
+				<m:Text id="_IDGenText5" text="Approved Amount" />
+			</m:Column>		
+			<m:Column id="_IDGenColumn4">
+				<m:Text id="_IDGenText6" text="Monthly Limit Amount" />
+			</m:Column>
+			<m:Column id="_IDGenColumn5">
+				<m:Text id="_IDGenText7" text="Remarks" />
+			</m:Column>
+            <m:Column id="_IDGenColumn6">
+				<m:Text id="_IDGenText8" text="" />
+			</m:Column>
+           
+		</m:columns>
+		<m:items>
+			<m:ColumnListItem id="idCli">
+				<m:cells>
+					<!-- <m:Title id="idCq" text="{fbHdModel>/Cquart}"/> -->
+					<m:ComboBox id="retype" items="{ path: 'fbPayModel>/fbpComponents'}" selectionChange="onChangeComponent" value="{fbBillModel>pay_comp_id}"> 
+							<m:items>
+							<core:Item id="dbmn" key="{fbPayModel>externalCode}" text="{fbPayModel>externalName}" />
+								</m:items>
+							 </m:ComboBox>
+                    <m:Input id="iddeclare" value="{fbBillModel>declared_amount}"/>
+                    <m:Input id="idApprove" value="{fbBillModel>approved_amount}" editable="false"/>
+					<m:Input id="idLimit" value="{fbBillModel>limit_amount}" editable="false"/>
+					<m:TextArea id="idTa" value="{fbBillModel>remarks}"></m:TextArea>
+					<core:Icon	id="iDel" src="sap-icon://delete" press="onBillDelete"/>		
+				</m:cells>
+			</m:ColumnListItem>
+		</m:items>
+	</m:Table>
+    </m:VBox>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+             
+         <ObjectPageSection titleUppercase="false" title="Declaration Summary" id="idODS">
+				<subSections>
+					<ObjectPageSubSection id="_IDGenObjectPageSubSection3" titleUppercase="false">
+						<blocks>
+                            <m:Table id="_IDGenTable1" width="auto" noDataText="No data" mode="None" showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="true" class="sapUiResponsiveMargin" items="{path:'fbDeclareModel>/fbpDecDetails/'}">
+                                         <m:headerToolbar>
+                                <m:OverflowToolbar id="_IDGenOverflowToolbar4">
+				<m:ToolbarSpacer id="_IDGenToolbarSpacer4" />
+                
+                                </m:OverflowToolbar>
+                                </m:headerToolbar>
+                                <m:columns>
+                                    <m:Column id="_IDGenColumn15" width="auto" hAlign="Left" vAlign="Inherit" minScreenWidth="Phone" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+                                        <m:header>
+                                            <m:Text id="_IDGenText23" text="Pay Component id" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                        </m:header>
+                                        
+                                    </m:Column>
+									<m:Column id="_IDGenColumn16" width="auto" hAlign="Left" vAlign="Inherit" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                                        <m:header>
+                                            <m:Text id="_IDGenText24" text="Declared Amount" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                        </m:header>
+										</m:Column>
+                    
+                                    <m:Column id="_IDGenColumn18" width="auto" hAlign="Left" vAlign="Inherit" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                                        <m:header>
+                                            <m:Text id="_IDGenText26" text="Approved Amount" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                        </m:header>
+                                    </m:Column>
+                                    
+                                    <!-- <m:Column id="_IDGenColumn19" width="auto" hAlign="Left" vAlign="Inherit" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                                        <m:header>
+                                            <m:Text id="_IDGenText27" text="Limit Amount" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                        </m:header>              
+                                    </m:Column> -->
+
+                                    <m:Column id="_IDGenColumn20" width="auto" hAlign="Left" vAlign="Inherit" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                                        <m:header>
+                                            <m:Text id="_IDGenText25" text="Remarks" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                        </m:header>              
+                                    </m:Column>
+                                </m:columns>
+                                <m:items>
+                                    <m:ColumnListItem id="_IDGenColumnListItem3" type="Active">
+                                        <m:cells>
+                                            <m:ObjectIdentifier id="_IDGenObjectIdentifier3" title="{fbDeclareModel>cust_paycompid}" text="" titleActive="false" visible="true"/>
+                                            <m:Text id="_IDGenText28" text="{fbDeclareModel>cust_declared_amount}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                            <m:Text id="_IDGenText29" text="{fbDeclareModel>cust_approved_amount}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                            <!-- <m:Text id="_IDGenText30" text="{fbDeclareModel>cust_approved_amount}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/> -->
+					                        <m:TextArea id="idRemarks" value="{fbDeclareModel>cust_remarks}"></m:TextArea>
+                                        </m:cells>
+                                    </m:ColumnListItem>                      
+                                </m:items>
+                            </m:Table>
+                        </blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+	  
+	   </sections>
+        </ObjectPageLayout>
+        </m:content>
+    </m:Page>
+</mvc:View>
