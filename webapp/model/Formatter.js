@@ -2,7 +2,7 @@ sap.ui.define([], function () {
     "use strict";
     return {
         resigDtFormatDisplayNew: function (odate) {
-            var dateFormat = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "dd-MM-yyyy" });
+            var dateFormat = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "yyyy-MM-dd" });
             var dateFormatted = dateFormat.format(odate);   // y MMM d
             return dateFormatted;
 

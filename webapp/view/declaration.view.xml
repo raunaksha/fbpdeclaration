@@ -21,23 +21,29 @@
 				<snappedTitleOnMobile>
 					<m:Title id="_IDGenTitle2" text="{fbHdModel>/uId}"/>
 				</snappedTitleOnMobile>
-				<actions>
+				<!-- <actions>
 				<ObjectPageHeaderActionButton id="_IDGenObjectPageHeaderActionButton1" icon="sap-icon://approvals" text="Submit For Approval" hideText="false" press="onWfSubmitConf" importance="Medium" tooltip="Submit for Approval"/>
-				</actions>
+				</actions> -->
 			</ObjectPageDynamicHeaderTitle>
        </headerTitle>
        <headerContent>
        	<m:FlexBox id="_IDGenFlexBox1" wrap="Wrap" fitContainer="true">
 				<l:VerticalLayout id="_IDGenVerticalLayout1" class="sapUiMediumMarginEnd">
-                    <m:ObjectStatus id="_IDGenObjectStatus16" title="Employee Id" text="{fbHdModel>/qWindow/employee_id}"/>                
+                    <m:ObjectStatus id="_IDGenObjectStatus16" title="Employee Id" text="{fbHdModel>/uId}"/>                
 					<m:ObjectStatus id="_IDGenObjectStatus15" title="Grade" text="{fbHdModel>/JobInfo/0/employmentTypeNav/picklistLabels/results/0/label}"/>	
 					<m:ObjectStatus id="_IDGenObjectStatus1" title="Financial Year" text="{fbHdModel>/finYear/0/cust_finyear}"/>
 					<m:ObjectStatus id="_IDGenObjectStatus11" title="Date of Joining" text="{path:'fbHdModel>/UserInfo/hireDate', formatter: '.formatter.resigDtFormatDisplayNew'}"/>
-					<m:ObjectStatus id="_IDGenObjectStatus12" title="Submission Date" text="{fbHdModel>/qWindow/submission_date}"/>
-					<m:ObjectStatus id="_IDGenObjectStatus13" title="FBP Effective Date" text="{path: 'fbHdModel>/qWindow', formatter: '.formatter.resigDtFormatDisplayNew'}"/>			
 				</l:VerticalLayout>
 
-				<l:VerticalLayout id="_IDGenVerticalLayout2" class="sapUiSmallMarginEnd">
+				<l:VerticalLayout id="_IDGenVerticalLayout11" class="sapUiMediumMarginEnd">
+                    
+					<m:ObjectStatus id="_IDGenObjectStatus121" title="Submission Date" text="{path:'fbHdModel>/submission_date', formatter: '.formatter.resigDtFormatDisplayNew'}"/>
+					<m:ObjectStatus id="_IDGenObjectStatus131" title="FBP Effective Date" text="{path: 'fbHdModel>/qWindow', formatter: '.formatter.resigDtFormatDisplayNew'}"/>
+					<m:ObjectStatus id="_IDGenObjectStatus1441" title="Declaration Start Date" text="{path: 'fbHdModel>/finYear/0/effectiveStartDate', formatter: '.formatter.resigDtFormatDisplayNew'}"/>	
+					<m:ObjectStatus id="_IDGenObjectStatus1331" title="Declaratio End Date" text="{path: 'fbHdModel>/finYear/0/cust_windowend', formatter: '.formatter.resigDtFormatDisplayNew'}"/>				
+				</l:VerticalLayout>
+
+				<!-- <l:VerticalLayout id="_IDGenVerticalLayout2" class="sapUiSmallMarginEnd">
                     
 					<m:ObjectStatus id="_IDGenObjectStatus3" title="Monthly Basis Salary" text="{fbHdModel>/monthly_basis_salary/paycompvalue}"/>
 					<m:ObjectStatus id="_IDGenObjectStatus4" title="Monthly HRA" text="{fbHdModel>/monthly_HRA/paycompvalue}"/>
@@ -45,7 +51,7 @@
 					<m:ObjectStatus id="_IDGenObjectStatus42" title="Monthly CCA (available for FBP)" text="{fbHdModel>/monthly_CCA/paycompvalue}"/>
                     <m:ObjectStatus id="_IDGenObjectStatus33" title="Monthly Special / Car Allowance (available for FBP)" text="{fbHdModel>/car_allowance/paycompvalue}"/>
 					<m:ObjectStatus id="_IDGenObjectStatus44" title="Total Monthly Gross" text="{fbHdModel>/total_monthly_gross/paycompvalue}"/>					
-				</l:VerticalLayout>
+				</l:VerticalLayout> -->
 
 			</m:FlexBox>   
        </headerContent>
@@ -54,24 +60,20 @@
 				<subSections>
 					<ObjectPageSubSection id="_IDGenObjectPageSubSection1" titleUppercase="false">
                         <m:VBox id="_IDGenVBox1">
-
-                        					 <forms:Form id="id15" width="100%">
+                        <forms:Form id="id15" width="100%">
 		<forms:layout>
 			<forms:ColumnLayout id="id14" />
-		</forms:layout>
-		
-    
+		</forms:layout>	
 	</forms:Form>
        	<m:Table id="idProductsTable"
 		inset="false"
 		items="{fbBillModel>/}">
 		<m:headerToolbar>
-			<m:OverflowToolbar id="_IDGenOverflowToolbar1">
-				
+			<m:OverflowToolbar id="_IDGenOverflowToolbar1">			
 					<m:ToolbarSpacer id="_IDGenToolbarSpacer1"/>
-					<m:Button id="_IDGenButton1" text="Save" icon="sap-icon://save" press="onBillSave" />
-					<m:Button id="_IDGenButton2" text="Add Component" icon="sap-icon://add" press="onAddComponent"/>
-				
+					<m:Button id="_IDGenButton1" text="Save" icon="sap-icon://save" press="onBillSave" enabled="{fbHdModel>/buttonsEnabled}"/>
+					<m:Button id="_IDGenButton2" text="Add Component" icon="sap-icon://add" press="onAddComponent" enabled="{fbHdModel>/buttonsEnabled}"/>
+				    <!-- <m:Button id="_IDGenButton22" text="Submit For Approval" icon="sap-icon://approvals" press="onWfSubmitConf" enabled="{fbHdModel>/buttonsEnabled}"/> -->
 			</m:OverflowToolbar>
 		</m:headerToolbar>		
 		<m:columns>
@@ -81,9 +83,6 @@
 			<m:Column id="_IDGenColumn2">
 				<m:Text id="_IDGenText4" text="Declared Amount" />
 			</m:Column>	
-			 <m:Column id="_IDGenColumn3">
-				<m:Text id="_IDGenText5" text="Approved Amount" />
-			</m:Column>		
 			<m:Column id="_IDGenColumn4">
 				<m:Text id="_IDGenText6" text="Monthly Limit Amount" />
 			</m:Column>
@@ -98,14 +97,12 @@
 		<m:items>
 			<m:ColumnListItem id="idCli">
 				<m:cells>
-					<!-- <m:Title id="idCq" text="{fbHdModel>/Cquart}"/> -->
 					<m:ComboBox id="retype" items="{ path: 'fbPayModel>/fbpComponents'}" selectionChange="onChangeComponent" value="{fbBillModel>pay_comp_id}"> 
 							<m:items>
 							<core:Item id="dbmn" key="{fbPayModel>externalCode}" text="{fbPayModel>externalName}" />
 								</m:items>
 							 </m:ComboBox>
-                    <m:Input id="iddeclare" value="{fbBillModel>declared_amount}"/>
-                    <m:Input id="idApprove" value="{fbBillModel>approved_amount}" editable="false"/>
+                    <m:Input id="iddeclare" value="{fbBillModel>declared_amount}" liveChange="onDeclaredAmountChange"/>
 					<m:Input id="idLimit" value="{fbBillModel>limit_amount}" editable="false"/>
 					<m:TextArea id="idTa" value="{fbBillModel>remarks}"></m:TextArea>
 					<core:Icon	id="iDel" src="sap-icon://delete" press="onBillDelete"/>		
@@ -117,7 +114,82 @@
 					</ObjectPageSubSection>
 				</subSections>
 			</ObjectPageSection>
+
+
+  <!-- Case Lease Declaration Section			 -->
+		<ObjectPageSection id="idSub1" titleUppercase="false" title="Car Lease Declaration">
+				<subSections>
+					<ObjectPageSubSection id="_IDGenObjectPageSubSection11" titleUppercase="false">
+                        <m:VBox id="_IDGenVBox11">
+
+                        					 <forms:Form id="id151" width="100%">
+		<forms:layout>
+			<forms:ColumnLayout id="id141" />
+		</forms:layout> 
+	</forms:Form>
+       	<m:Table id="idProductsTable1"
+		inset="false"
+		items="{fbCarLeaseModel>/}"
+		mode="MultiSelect">
+		<m:headerToolbar>
+			<m:OverflowToolbar id="_IDGenOverflowToolbar11">
+				
+					<m:ToolbarSpacer id="_IDGenToolbarSpacer11"/>
+					<m:Button id="_IDGenButton115" text="Cancel" icon="sap-icon://cancel" press="onBillCancel" enabled="{fbHdModel>/cancelbuttonsEnabled}"/>
+					<m:Button id="_IDGenButton11" text="Save" icon="sap-icon://save" press="onBillSave" enabled="{fbHdModel>/buttonsEnabled}"/>
+					<m:Button id="_IDGenButton21" text="Add Component" icon="sap-icon://add" press="onAddCarComponent" enabled="{fbHdModel>/buttonsEnabled}"/>
+					<m:Button id="_IDGenButton212" text="Submit For Approval" icon="sap-icon://approvals" press="onWfSubmitConf1" enabled="{fbHdModel>/buttonsEnabled}"/>
+			</m:OverflowToolbar>
+		</m:headerToolbar>		
+		<m:columns>
+			<m:Column id="_IDGenColumn11">
+				<m:Text id="_IDGenText31" text="Pay Component id" />
+			</m:Column>
+			<m:Column id="_IDGenColumn21">
+				<m:Text id="_IDGenText41" text="Car Cost Range" />
+			</m:Column>	
+			<m:Column id="_IDGenColumn41">
+				<m:Text id="_IDGenText61" text="Declared Amount" />
+			</m:Column>
+			<m:Column id="_IDGenColumn414">
+				<m:Text id="_IDGenText614" text="Status" />
+			</m:Column>
+			<m:Column id="_IDGenColumn51">
+				<m:Text id="_IDGenText71" text="Remarks" />
+			</m:Column>
+            <m:Column id="_IDGenColumn61">
+				<m:Text id="_IDGenText81" text="" />
+			</m:Column>
+           
+		</m:columns>
+		<m:items>
+			<m:ColumnListItem id="idCli1">
+				<m:cells>
+					<m:ComboBox id="retype1" items="{ path: 'fbCarModel>/fbpComponents'}" selectionChange="onCarSelect" value="{fbCarLeaseModel>externalCode}"> 
+							<m:items>
+							<core:Item id="dbmn1" key="{fbCarModel>externalCode}" text="{fbCarModel>externalName}" />
+								</m:items>
+							 </m:ComboBox>
+                    <m:ComboBox id="retype2" items="{ path: 'fbCarModel>/carCostRange'}" selectionChange="onCarRangeSelect" value="{fbCarLeaseModel>cust_carCostRange}"> 
+							<m:items>
+							<core:Item id="dbmn2" key="{fbCarModel>externalCode}" text="{fbCarModel>label_localized}" />
+								</m:items>
+							 </m:ComboBox>
+					<m:Input id="idLimit1" value="{fbCarLeaseModel>cust_declared_amount}" editable="false" />
+					<m:Input id="idLimit11" value="{fbCarLeaseModel>cust_wf_status}" editable="false" />
+					<m:TextArea id="idTa1" value="{fbCarLeaseModel>remarks}"></m:TextArea>
+					<core:Icon	id="iDel1" src="sap-icon://delete" press="onCarLeaseDelete"/>		
+				</m:cells>
+			</m:ColumnListItem>
+		</m:items>
+	</m:Table>
+    </m:VBox>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>	
              
+
+			<!-- Declration Summary Section  -->
          <ObjectPageSection titleUppercase="false" title="Declaration Summary" id="idODS">
 				<subSections>
 					<ObjectPageSubSection id="_IDGenObjectPageSubSection3" titleUppercase="false">
@@ -126,13 +198,13 @@
                                          <m:headerToolbar>
                                 <m:OverflowToolbar id="_IDGenOverflowToolbar4">
 				<m:ToolbarSpacer id="_IDGenToolbarSpacer4" />
-                
+                 <m:Button id="_IDGenButton22" text="Submit For Approval" icon="sap-icon://approvals" press="onWfSubmitConf" enabled="{fbHdModel>/buttonsEnabled}"/>
                                 </m:OverflowToolbar>
                                 </m:headerToolbar>
                                 <m:columns>
                                     <m:Column id="_IDGenColumn15" width="auto" hAlign="Left" vAlign="Inherit" minScreenWidth="Phone" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
                                         <m:header>
-                                            <m:Text id="_IDGenText23" text="Pay Component id" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                            <m:Text id="_IDGenText23" text="Pay Component" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                         </m:header>
                                         
                                     </m:Column>
@@ -147,12 +219,11 @@
                                             <m:Text id="_IDGenText26" text="Approved Amount" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                         </m:header>
                                     </m:Column>
-                                    
-                                    <!-- <m:Column id="_IDGenColumn19" width="auto" hAlign="Left" vAlign="Inherit" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+									<m:Column id="_IDGenColumn181" width="auto" hAlign="Left" vAlign="Inherit" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                                         <m:header>
-                                            <m:Text id="_IDGenText27" text="Limit Amount" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                        </m:header>              
-                                    </m:Column> -->
+                                            <m:Text id="_IDGenText261" text="Status" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                        </m:header>
+                                    </m:Column>
 
                                     <m:Column id="_IDGenColumn20" width="auto" hAlign="Left" vAlign="Inherit" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                                         <m:header>
@@ -163,11 +234,11 @@
                                 <m:items>
                                     <m:ColumnListItem id="_IDGenColumnListItem3" type="Active">
                                         <m:cells>
-                                            <m:ObjectIdentifier id="_IDGenObjectIdentifier3" title="{fbDeclareModel>cust_paycompid}" text="" titleActive="false" visible="true"/>
+                                            <m:ObjectIdentifier id="_IDGenObjectIdentifier3" title="{fbDeclareModel>externalName}" text="" titleActive="false" visible="true"/>
                                             <m:Text id="_IDGenText28" text="{fbDeclareModel>cust_declared_amount}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             <m:Text id="_IDGenText29" text="{fbDeclareModel>cust_approved_amount}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                            <!-- <m:Text id="_IDGenText30" text="{fbDeclareModel>cust_approved_amount}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/> -->
-					                        <m:TextArea id="idRemarks" value="{fbDeclareModel>cust_remarks}"></m:TextArea>
+                                            <m:Text id="_IDGenText30" text="{fbDeclareModel>cust_wf_status}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+					                        <m:Text id="idRemarks" text="{fbDeclareModel>cust_remarks}"></m:Text>
                                         </m:cells>
                                     </m:ColumnListItem>                      
                                 </m:items>
